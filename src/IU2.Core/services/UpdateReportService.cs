@@ -14,5 +14,10 @@ namespace IU2.Core.services
         new TimeReport { Id = 3, Kund = "Initech", Datum = new DateOnly(2026, 9, 8), Timmar = 1.0m, Beskrivning = "Möte med kund" }
     };
 
+        public List<TimeReport> GetReportsForCurrentMonth()
+        {
+            var today = DateOnly.FromDateTime(DateTime.Now);
+            return _reports.Where(r => r.Datum.Year == today.Year && r.Datum.Month == today.Month).ToList();
+        }
     }
 }
