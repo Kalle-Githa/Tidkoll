@@ -29,55 +29,79 @@
             </div>
         </div>
         @if (selectedReport is not null)
-{
-        <table class="report-table">
-            <thead>
-                <tr>
-                    <th>KUND</th>
-                    <th>DATUM</th>
-                    <th>NUVARANDE TIMMAR</th>
-                    <th>BESKRIVNING</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
+        {
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th>KUND</th>
+                        <th>DATUM</th>
+                        <th>NUVARANDE TIMMAR</th>
+                        <th>BESKRIVNING</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
                         <td>@selectedReport.Kund</td>
                         <td>@selectedReport.Datum.ToString("yyyy-MM-dd")</td>
                         <td>@selectedReport.Timmar</td>
                         <td>@selectedReport.Beskrivning</td>
-                </tr>
-            </tbody>
-        </table>
-        }
-        <div class="field-row">
-            <div class="field">
-                <label>Nya timmar</label>
-                <input type="text" class="input" placeholder="t.ex. 4,0" />
-            </div>
-            <button class="save-button">Spara ändring</button>
-        </div>
+                    </tr>
+                </tbody>
+            </table>
 
-        <p class="confirmation-message">Uppdaterat</p>
+            <div class="field-row">
+                <div class="field">
+                    <label>Nya timmar</label>
+                    <input type="text" class="input" placeholder="t.ex. 4,0" @bind="newHoursInput" />
+                </div>
+                <button class="save-button" @onclick="SaveChange">Spara ändring</button>
+            </div>
+
+            @if (showConfirmation)
+            {
+                <p class="confirmation-message">Uppdaterat</p>
+            }
+        }
     </main>
 </div>
 
 @code {
     private List<TimeReport> reports = new();
     private TimeReport? selectedReport;
+    private string newHoursInput = string.Empty;
+    private bool showConfirmation = false;
 
     protected override void OnInitialized()
     {
         reports = ReportService.GetReportsForCurrentMonth();
     }
+
     private void OnReportSelected(ChangeEventArgs e)
     {
+        showConfirmation = false;
         if (int.TryParse(e.Value?.ToString(), out var id))
         {
             selectedReport = reports.FirstOrDefault(r => r.Id == id);
+            newHoursInput = selectedReport?.Timmar.ToString() ?? string.Empty;
         }
         else
         {
             selectedReport = null;
+        }
+    }
+
+    private void SaveChange()
+    {
+        if (selectedReport is null) return;
+
+        if (decimal.TryParse(newHoursInput, out var newHours))
+        {
+            var success = ReportService.UpdateHours(selectedReport.Id, newHours);
+            if (success)
+            {
+                selectedReport = reports.FirstOrDefault(r => r.Id == selectedReport.Id);
+                showConfirmation = true;
+            }
         }
     }
 }
