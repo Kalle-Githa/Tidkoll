@@ -1,3 +1,4 @@
+using IU2.Core.helpers;
 using IU2.Core.models;
 using System;
 using System.Collections.Generic;
@@ -20,13 +21,15 @@ namespace IU2.Core.services
             return _reports.Where(r => r.Datum.Year == today.Year && r.Datum.Month == today.Month).ToList();
         }
 
-        public void UpdateHours(int id, decimal newHours) // Kommer behövas till "Skapa TimeReport", kanske räcker det med en metod. (DRY)
+        public bool UpdateHours(int id, decimal newHours) // Kommer behövas till "Skapa TimeReport", kanske räcker det med en metod. (DRY)
         {
             var report = _reports.FirstOrDefault(r => r.Id == id);
-            if (report != null)
-            {
-                report.Timmar = newHours;
-            }
+            if (report is null) return false;
+
+            if (!TimeReportValidator.IsValidHours(newHours)) return false;
+
+            report.Timmar = newHours;
+            return true;
         }
     }
 }
