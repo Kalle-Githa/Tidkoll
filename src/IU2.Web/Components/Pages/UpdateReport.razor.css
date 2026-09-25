@@ -56,10 +56,17 @@
     margin: 0 0 24px 0;
 }
 
+.field {
+    display: flex;
+    flex-direction: column;
+}
+
 .field-row {
     display: flex;
     gap: 24px;
     margin-bottom: 24px;
+    /*lagt till nedan*/
+    align-items: flex-end;
 }
 
 .field label {
@@ -75,4 +82,40 @@
     border-radius: 6px;
     min-width: 320px;
     font-size: 14px;
+}
+
+.save-button {
+    background: #2f6fed;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    height: 42px;
+}
+
+.report-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+}
+
+    .report-table th {
+        background: #f5f7fa;
+        text-align: left;
+        font-size: 12px;
+        color: #6b7684;
+        padding: 12px;
+    }
+
+    .report-table td {
+        padding: 12px;
+        border-top: 1px solid #eef1f4;
+        color: #1e2a3a;
+    }
+
+.confirmation-message {
+    color: #1e824c;
+    font-weight: 500;
 }
