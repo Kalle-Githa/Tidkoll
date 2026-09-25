@@ -4,4 +4,8 @@
     <RootNamespace>IU2.Core</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="services\" />
+  </ItemGroup>
+
 </Project>
