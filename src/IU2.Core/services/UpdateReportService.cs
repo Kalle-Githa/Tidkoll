@@ -20,7 +20,7 @@ namespace IU2.Core.services
             return _reports.Where(r => r.Datum.Year == today.Year && r.Datum.Month == today.Month).ToList();
         }
 
-        public void UpdateHours(int id, decimal newHours)
+        public void UpdateHours(int id, decimal newHours) // Kommer behövas till "Skapa TimeReport", kanske räcker det med en metod. (DRY)
         {
             var report = _reports.FirstOrDefault(r => r.Id == id);
             if (report != null)
