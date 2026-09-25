@@ -19,7 +19,7 @@
         <div class="field-row">
             <div class="field">
                 <label>Rapport</label>
-                <select class="input">
+                <select class="input" @onchange=" OnReportSelected" ">
                     <option value="">Välj rapport</option>
                     @foreach (var r in reports)
                     {
@@ -28,6 +28,8 @@
                 </select>
             </div>
         </div>
+        @if (selectedReport is not null)
+{
         <table class="report-table">
             <thead>
                 <tr>
@@ -39,14 +41,14 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>Acme AB</td>
-                    <td>2026-09-08</td>
-                    <td>4,0</td>
-                    <td>Utveckling av ny funktion</td>
+                        <td>@selectedReport.Kund</td>
+                        <td>@selectedReport.Datum.ToString("yyyy-MM-dd")</td>
+                        <td>@selectedReport.Timmar</td>
+                        <td>@selectedReport.Beskrivning</td>
                 </tr>
             </tbody>
         </table>
-
+        }
         <div class="field-row">
             <div class="field">
                 <label>Nya timmar</label>
@@ -61,9 +63,21 @@
 
 @code {
     private List<TimeReport> reports = new();
+    private TimeReport? selectedReport;
 
     protected override void OnInitialized()
     {
         reports = ReportService.GetReportsForCurrentMonth();
+    }
+    private void OnReportSelected(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), out var id))
+        {
+            selectedReport = reports.FirstOrDefault(r => r.Id == id);
+        }
+        else
+        {
+            selectedReport = null;
+        }
     }
 }
