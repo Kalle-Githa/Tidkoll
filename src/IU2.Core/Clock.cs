@@ -5,6 +5,8 @@ namespace IU2.Core;
 /// hämta den själv, så att testerna kan bestämma vad klockan är.
 /// Behåll mönstret, kasta gärna klassen när ni har en egen domän.
 /// </summary>
+///
+// kommentar
 public interface IClock
 {
     DateTimeOffset Now { get; }
