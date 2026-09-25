@@ -19,5 +19,14 @@ namespace IU2.Core.services
             var today = DateOnly.FromDateTime(DateTime.Now);
             return _reports.Where(r => r.Datum.Year == today.Year && r.Datum.Month == today.Month).ToList();
         }
+
+        public void UpdateHours(int id, decimal newHours)
+        {
+            var report = _reports.FirstOrDefault(r => r.Id == id);
+            if (report != null)
+            {
+                report.Timmar = newHours;
+            }
+        }
     }
 }
