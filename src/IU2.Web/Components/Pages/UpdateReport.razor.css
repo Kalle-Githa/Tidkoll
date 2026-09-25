@@ -1,0 +1,121 @@
+/* CSS for UpdateReport component */
+
+.topbar {
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 32px;
+    border-bottom: 1px solid #e5e9f0;
+}
+
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+    .topbar-left h1 {
+        font-size: 20px;
+        color: #1e2a3a;
+        margin: 0;
+    }
+
+.avatar-icon {
+    background: #37475a;
+    color: white;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.topbar-right {
+    color: #37475a;
+    font-weight: 500;
+}
+
+.card {
+    background: white;
+    max-width: 1200px;
+    margin: 32px auto;
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+    .card h2 {
+        margin: 0 0 4px 0;
+        color: #1e2a3a;
+    }
+
+.subtitle {
+    color: #6b7684;
+    margin: 0 0 24px 0;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+}
+
+.field-row {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 24px;
+    /*lagt till nedan*/
+    align-items: flex-end;
+}
+
+.field label {
+    display: block;
+    font-size: 13px;
+    color: #37475a;
+    margin-bottom: 6px;
+}
+
+.input {
+    padding: 10px 12px;
+    border: 1px solid #d5dae1;
+    border-radius: 6px;
+    min-width: 320px;
+    font-size: 14px;
+}
+
+.save-button {
+    background: #2f6fed;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    height: 42px;
+}
+
+.report-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+}
+
+    .report-table th {
+        background: #f5f7fa;
+        text-align: left;
+        font-size: 12px;
+        color: #6b7684;
+        padding: 12px;
+    }
+
+    .report-table td {
+        padding: 12px;
+        border-top: 1px solid #eef1f4;
+        color: #1e2a3a;
+    }
+
+.confirmation-message {
+    color: #1e824c;
+    font-weight: 500;
+}
