@@ -1,13 +1,15 @@
 using IU2.Core.helpers;
 using IU2.Core.models;
+using IU2.Core.services.interfaces;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace IU2.Core.services
 {
-    internal class UpdateReportService
+    public class UpdateReportService : IUpdateReportService
     {
+
         private List<TimeReport> _reports = new()
     {
         new TimeReport { Id = 1, Kund = "Acme AB", Datum = new DateOnly(2026, 9, 8), Timmar = 4.0m, Beskrivning = "Utveckling av ny funktion" },
