@@ -1,63 +1,111 @@
 @page "/tidrapportering"
+@using IU2.Core.Models
 @using IU2.Core.services
 @inject TimeReportService TimeReportService
 
-<h3>Rapportera timmar</h3>
-
-<EditForm Model="@model" OnValidSubmit="HandleSubmit">
-    <div class="mb-3">
-        <label>Datum</label>
-        <InputDate @bind-Value="model.Date" class="form-control" />
+<div class="page">
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="avatar">👤</div>
+            <h1>Tidsrapport</h1>
+        </div>
+        <div class="topbar-right">
+            <span>Konsult</span>
+            <span class="chevron">⌄</span>
+        </div>
     </div>
 
-    <div class="mb-3">
-        <label>Kund</label>
-        <select class="form-select" @bind="model.CustomerId">
-            <option value="0">Välj kund</option>
-            @foreach (var customer in TimeReportService.Customers)
-            {
-                <option value="@customer.Id">@customer.Name</option>
-            }
-        </select>
+    <div class="content">
+        <div class="card">
+            <h2>Rapportera timmar</h2>
+            <p class="subtitle">Välj kund, datum och antal timmar. Lägg till en beskrivning om du vill.</p>
+
+            <EditForm Model="@model" OnValidSubmit="HandleSubmit">
+                <div class="form-row">
+                    <div class="field">
+                        <label>Kund</label>
+                        <select class="input" @bind="model.CustomerId">
+                            <option value="0">Välj kund</option>
+                            @foreach (var c in TimeReportService.Customers)
+                            {
+                                <option value="@c.Id">@c.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Datum</label>
+                        <InputDate class="input" @bind-Value="model.Date" />
+                    </div>
+                    <div class="field field-small">
+                        <label>Timmar</label>
+                        <InputNumber class="input" @bind-Value="model.Hours" step="0.5" placeholder="t.ex. 4,0" />
+                    </div>
+                    <div class="field field-wide">
+                        <label>Beskrivning (valfritt)</label>
+                        <InputText class="input" @bind-Value="model.Description" placeholder="Vad har du jobbat med?" />
+                    </div>
+                    <div class="field field-button">
+                        <button type="submit" class="btn-primary">Lägg till</button>
+                    </div>
+                </div>
+
+                @if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    <div class="alert-error">@errorMessage</div>
+                }
+                @if (showSaved)
+                {
+                    <div class="alert-success">Sparat</div>
+                }
+            </EditForm>
+
+            <div class="list-header">
+                <h3>Dagens rapportering</h3>
+                <span class="total">Totalt idag: @totalHours.ToString("0.0") h</span>
+            </div>
+
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th>KUND</th>
+                        <th>DATUM</th>
+                        <th>TIMMAR</th>
+                        <th>BESKRIVNING</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var r in TimeReportService.GetReportsForDate(model.Date))
+                    {
+                        var customer = TimeReportService.Customers.First(c => c.Id == r.CustomerId);
+                        <tr>
+                            <td>@customer.Name</td>
+                            <td>@r.Date.ToString("yyyy-MM-dd")</td>
+                            <td>@r.Hours.ToString("0.0")</td>
+                            <td>@r.Description</td>
+                            <td class="delete-cell">
+                                <button class="btn-delete" @onclick="() => DeleteReport(r.Id)" title="Ta bort">🗑</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
-
-    <div class="mb-3"> 
-        <label>Timmar</label>
-        <InputNumber @bind-Value="model.Hours" class="form-control" step="0.5" />
-    </div>
-
-    @if (!string.IsNullOrEmpty(errorMessage))
-    {
-        <div class="alert alert-danger">@errorMessage</div>
-    }
-
-    @if (showSaved)
-    {
-        <div class="alert alert-success">Sparat</div>
-    }
-
-    <button type="submit" class="btn btn-primary">Spara</button>
-</EditForm>
-
-<h4 class="mt-4">Rapporterade timmar för @model.Date.ToShortDateString()</h4>
-<ul>
-    @foreach (var r in TimeReportService.GetReportsForDate(model.Date))
-    {
-        var customer = TimeReportService.Customers.FirstOrDefault(c => c.Id == r.CustomerId);
-        <li>@customer?.Name: @r.Hours timmar</li>
-    }
-</ul>
+</div>
 
 @code {
-    private TimeReportFormModel model = new TimeReportFormModel { Date = DateTime.Today };
+    private FormModel model = new FormModel() { Date = DateTime.Today };
     private string? errorMessage;
     private bool showSaved;
+    private decimal totalHours => TimeReportService.GetTotalHoursForDate(model.Date);
 
-    private class TimeReportFormModel
+    private class FormModel
     {
         public DateTime Date { get; set; }
         public int CustomerId { get; set; }
         public decimal Hours { get; set; }
+        public string? Description { get; set; }
     }
 
     private void HandleSubmit()
@@ -71,7 +119,7 @@
             return;
         }
 
-        var (success, error) = TimeReportService.AddReport(model.Date, model.CustomerId, model.Hours);
+        var (success, error) = TimeReportService.AddReport(model.Date, model.CustomerId, model.Hours, model.Description);
 
         if (!success)
         {
@@ -80,6 +128,12 @@
         }
 
         showSaved = true;
-        model.Hours = 0; // Reset hours after successful submission
+        model.Hours = 0;
+        model.Description = string.Empty;
+    }
+
+    private void DeleteReport(int id)
+    {
+        TimeReportService.DeleteReport(id);
     }
 }
