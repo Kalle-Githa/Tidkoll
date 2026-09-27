@@ -12,12 +12,12 @@ namespace IU2.Core.services
 
         private List<TimeReports> _reports = new()
     {
-        new TimeReport { Id = 1, Kund = "Acme AB", Datum = new DateOnly(2026, 9, 8), Timmar = 4.0m, Beskrivning = "Utveckling av ny funktion" },
-        new TimeReport { Id = 2, Kund = "Globex Solutions", Datum = new DateOnly(2026, 9, 8), Timmar = 2.5m, Beskrivning = "Bugfixar och testning" },
-        new TimeReport { Id = 3, Kund = "Initech", Datum = new DateOnly(2026, 9, 8), Timmar = 1.0m, Beskrivning = "Möte med kund" }
+        new TimeReports { Id = 1, Kund = "Acme AB", Datum = new DateOnly(2026, 9, 8), Timmar = 4.0m, Beskrivning = "Utveckling av ny funktion" },
+        new TimeReports { Id = 2, Kund = "Globex Solutions", Datum = new DateOnly(2026, 9, 8), Timmar = 2.5m, Beskrivning = "Bugfixar och testning" },
+        new TimeReports { Id = 3, Kund = "Initech", Datum = new DateOnly(2026, 9, 8), Timmar = 1.0m, Beskrivning = "Möte med kund" }
     };
 
-        public List<TimeReport> GetReportsForCurrentMonth()
+        public List<TimeReports> GetReportsForCurrentMonth()
         {
             var today = DateOnly.FromDateTime(DateTime.Now);
             return _reports.Where(r => r.Datum.Year == today.Year && r.Datum.Month == today.Month).ToList();
