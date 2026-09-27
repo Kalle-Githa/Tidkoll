@@ -7,7 +7,7 @@ namespace IU2.Core.services.interfaces
 {
     public interface IUpdateReportService
     {
-        List<TimeReport> GetReportsForCurrentMonth();
+        List<TimeReports> GetReportsForCurrentMonth();
         bool UpdateHours(int id, decimal newHours);
     }
 }
