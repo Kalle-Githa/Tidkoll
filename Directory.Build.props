@@ -10,8 +10,8 @@
     <!-- Diskutera i sprint 0: ska varningar stoppa bygget?
          Slår ni på den här raden blir er Definition of Done skarpare -
          och er första vecka jobbigare. Valet är ert, men motivera det.
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     -->
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
 </Project>

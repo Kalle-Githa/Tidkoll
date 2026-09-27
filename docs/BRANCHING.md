@@ -1,27 +1,37 @@
 # Branching-strategi
 
-> **Det här är ett förslag, inte ett facit.** Välj en strategi i sprint 0,
-> skriv ner den här, och motivera valet. Att ni kan motivera valet väger
-> tyngre än vilket val ni gör.
+> Vald i sprint 0 utifrån lärarens förslag (trunk-based), justerad med en
+> `dev`-gren. Motivering nedan.
 
-## Förslag: trunk-based med korta feature-grenar
+## Vår strategi: korta feature-grenar via `dev`
 
-- `main` är alltid deploybar. Ingen pushar direkt till `main`.
-- Allt arbete sker på `feature/<kort-beskrivning>`, som lever max en dag.
-- Ändringar går in i `main` via pull request med minst en granskare.
+```
+feature/<kort-beskrivning>  →  dev  →  main
+```
+
+- `main` är alltid deploybar. Ingen pushar direkt till `main` eller `dev`.
+- Nya grenar skapas från `dev`: `feature/<kort-beskrivning>`.
+- Ändringar går in i `dev` via pull request med minst en granskare.
 - CI måste vara grön innan merge.
 - Grenen tas bort efter merge.
+- När sprintens stories fungerar ihop i `dev` görs en pull request `dev` → `main`.
 
 ## Varför korta grenar i just det här projektet
 
 Sprintarna är endagssprintar. En gren som lever längre än en sprint hinner
 aldrig bli granskad inom sprinten, och då syns inte arbetet i demon.
 
-## Skydda main
+## Varför `dev` före `main`
 
-Settings → Branches → Add rule på `main`:
+Flera stories bygger på samma kod (t.ex. kalendern använder
+tidrapporteringens `TimeReportService`). I `dev` kan vi se att de fungerar
+tillsammans innan de når `main`. Då är `main` alltid ett fungerande
+inkrement att visa på demon.
+
+## Skydda main och dev
+
+Settings → Branches → Add rule på `main` och på `dev`:
 
 - Require a pull request before merging
 - Require status checks to pass → välj `Bygg och testa`
 
-Gör det i sprint 0. Efter det kan ni inte råka förstöra varandras arbete.
