@@ -1,0 +1,180 @@
+.page {
+    min-height: 100vh;
+    background: #f4f6fa;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 32px;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e8ef;
+}
+
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #334155;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.topbar-left h1 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #1e293b;
+    font-weight: 500;
+}
+
+.content {
+    padding: 32px;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    padding: 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+    .card h2 {
+        font-size: 26px;
+        font-weight: 700;
+        color: #1e293b;
+        margin: 0 0 4px;
+    }
+
+.subtitle {
+    color: #64748b;
+    margin: 0 0 24px;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.weekday-header {
+    font-size: 12px;
+    color: #94a3b8;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 10px 12px;
+    background: #f8fafc;
+    border-bottom: 1px solid #eef1f6;
+    border-radius: 8px 8px 0 0;
+}
+
+.day {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 84px;
+    padding: 10px 12px;
+    background: #ffffff;
+    border: 1px solid #eef1f6;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.day-empty {
+    background: #f8fafc;
+    border-color: transparent;
+}
+
+.day-today {
+    border-color: #2f5be0;
+    box-shadow: 0 0 0 3px rgba(59, 91, 224, 0.15);
+}
+
+.day-number {
+    font-size: 12px;
+    font-weight: 600;
+    color: #94a3b8;
+}
+
+.day-hours {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin: 32px 0 12px;
+}
+
+    .list-header h3 {
+        font-size: 18px;
+        font-weight: 700;
+        color: #1e293b;
+        margin: 0;
+    }
+
+.total {
+    color: #334155;
+    font-weight: 500;
+}
+
+@media (max-width: 640px) {
+    .topbar {
+        padding: 12px 16px;
+    }
+
+    .content {
+        padding: 16px;
+    }
+
+    .card {
+        padding: 16px;
+    }
+
+    .calendar-grid {
+        gap: 4px;
+    }
+
+    .weekday-header {
+        padding: 6px 2px;
+        font-size: 10px;
+        text-align: center;
+    }
+
+    .day {
+        min-height: 56px;
+        padding: 6px 4px;
+    }
+
+    .day-hours {
+        font-size: 12px;
+    }
+
+    .list-header {
+        flex-direction: column;
+        gap: 4px;
+    }
+}
