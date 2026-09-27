@@ -10,7 +10,7 @@ namespace IU2.Core.services
     public class UpdateReportService : IUpdateReportService
     {
 
-        private List<TimeReport> _reports = new()
+        private List<TimeReports> _reports = new()
     {
         new TimeReport { Id = 1, Kund = "Acme AB", Datum = new DateOnly(2026, 9, 8), Timmar = 4.0m, Beskrivning = "Utveckling av ny funktion" },
         new TimeReport { Id = 2, Kund = "Globex Solutions", Datum = new DateOnly(2026, 9, 8), Timmar = 2.5m, Beskrivning = "Bugfixar och testning" },
