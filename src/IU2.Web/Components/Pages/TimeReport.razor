@@ -2,6 +2,7 @@
 @using IU2.Core.Models
 @using IU2.Core.services
 @inject TimeReportService TimeReportService
+@inject IClock Clock
 
 <div class="page">
     <div class="topbar">
@@ -95,7 +96,8 @@
 </div>
 
 @code {
-    private FormModel model = new FormModel() { Date = DateTime.Today };
+    // private FormModel model = new FormModel() { Date = DateTime.Today };
+    private FormModel model = new();
     private string? errorMessage;
     private bool showSaved;
     private decimal totalHours => TimeReportService.GetTotalHoursForDate(model.Date);
@@ -106,6 +108,12 @@
         public int CustomerId { get; set; }
         public decimal Hours { get; set; }
         public string? Description { get; set; }
+    }
+
+
+    protected override void OnInitialized()
+    {
+        model.Date = Clock.Now.Date;
     }
 
     private void HandleSubmit()
@@ -136,4 +144,5 @@
     {
         TimeReportService.DeleteReport(id);
     }
+
 }

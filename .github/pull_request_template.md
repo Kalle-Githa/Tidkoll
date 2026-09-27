@@ -8,9 +8,11 @@
 
 ## Definition of Done
 
-- [ ] Bygget är grönt
-- [ ] Tester finns för det som är värt att testa
-- [ ] Någon annan än författaren har granskat
-- [ ] Acceptanskriterierna i storyn är uppfyllda
+- [ ] Koden är skriven och pushad till repot (dev via pull request)
+- [ ] Minst en teammedlem har granskat koden (code review)
+- [ ] CI Bygg och testa är grön – det betyder också 0 varningar
+- [ ] Alla acceptanskriterier i storyn är uppfyllda
+- [ ] README är uppdaterad om ändringen påverkar hur man kör eller använder appen
+- [ ] PR-beskrivningen är ifylld enligt mallen
 
 ## Något granskaren bör titta extra på?
