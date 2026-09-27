@@ -1,6 +1,6 @@
 namespace IU2.Core.models;
 
-public class TimeReport
+public class TimeReports
 {   
     public required int Id { get; set; }
     public required string Kund { get; set; } = string.Empty;
