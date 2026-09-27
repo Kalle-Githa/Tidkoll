@@ -1,4 +1,5 @@
 using IU2.Core;
+using IU2.Core.services;
 using IU2.Web.Components;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,8 @@ builder.Services.AddRazorComponents()
 
 // Registrera era tjänster här.
 builder.Services.AddSingleton<IClock, SystemClock>();
+
+builder.Services.AddScoped<TimeReportService>();
 
 var app = builder.Build();
 
