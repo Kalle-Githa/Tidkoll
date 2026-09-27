@@ -1,0 +1,83 @@
+@page "/kalender"
+@using System.Globalization
+@using IU2.Core.Calendar
+@using IU2.Core.services
+@inject TimeReportService TimeReportService
+@inject IClock Clock
+
+@* TimeReportService är scoped (en instans per användarsession/circuit), så alla
+   rapporter här är skapade av den aktuella konsulten. När inloggning och
+   konsult-id finns på TimeReport ska anropen nedan filtrera på konsult. *@
+
+<div class="page">
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="avatar">👤</div>
+            <h1>Kalender</h1>
+        </div>
+        <div class="topbar-right">
+            <span>Konsult</span>
+            <span class="chevron">⌄</span>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="card">
+            <h2>@monthTitle</h2>
+            <p class="subtitle">Översikt över rapporterade timmar per dag. Dagar utan timmar är tomma.</p>
+
+            <div class="calendar-grid">
+                @foreach (var weekday in weekdays)
+                {
+                    <div class="weekday-header">@weekday</div>
+                }
+
+                @foreach (var date in grid)
+                {
+                    if (date is null)
+                    {
+                        <div class="day day-empty"></div>
+                    }
+                    else
+                    {
+                        var hours = TimeReportService.GetTotalHoursForDate(date.Value);
+                        <div class="day @(date.Value == today ? "day-today" : "")">
+                            <span class="day-number">@date.Value.Day</span>
+                            @if (hours > 0)
+                            {
+                                <span class="day-hours">@hours.ToString("0.0") h</span>
+                            }
+                        </div>
+                    }
+                }
+            </div>
+
+            <div class="list-header">
+                <h3>Summering</h3>
+                <span class="total">Totalt denna månad: @monthTotal.ToString("0.0") h</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private static readonly string[] weekdays = { "MÅN", "TIS", "ONS", "TOR", "FRE", "LÖR", "SÖN" };
+    private static readonly CultureInfo swedish = new("sv-SE");
+
+    private DateTime today;
+    private IReadOnlyList<DateTime?> grid = Array.Empty<DateTime?>();
+    private string monthTitle = string.Empty;
+
+    private decimal monthTotal => grid
+        .Where(d => d is not null)
+        .Sum(d => TimeReportService.GetTotalHoursForDate(d!.Value));
+
+    protected override void OnInitialized()
+    {
+        today = Clock.Now.Date;
+        grid = CalendarMonth.BuildGrid(today.Year, today.Month);
+
+        var title = today.ToString("MMMM yyyy", swedish);
+        monthTitle = char.ToUpper(title[0]) + title[1..];
+    }
+}

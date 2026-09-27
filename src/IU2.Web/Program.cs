@@ -12,6 +12,8 @@ builder.Services.AddRazorComponents()
 builder.Services.AddSingleton<IClock, SystemClock>();
 builder.Services.AddScoped<IUpdateReportService, UpdateReportService>();
 
+builder.Services.AddScoped<TimeReportService>();
+
 var app = builder.Build();
 
 app.UseStaticFiles();
