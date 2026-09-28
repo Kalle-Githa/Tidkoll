@@ -9,11 +9,12 @@
 
 En story är klar när:
 
-- [ ] Koden är skriven och pushad till repot (main via pull request)
+- [ ] Koden är skriven och pushad till repot (dev via pull request)
 - [ ] Minst en teammedlem har granskat koden (code review)
 - [ ] CI Bygg och testa är grön – det betyder också 0 varningar
 - [ ] Alla acceptanskriterier i storyn är uppfyllda
-- [ ] Dokumentation uppdaterad (README)
+- [ ] README är uppdaterad om ändringen påverkar hur man kör eller använder appen
+- [ ] PR-beskrivningen är ifylld enligt mallen
 
 ## Vad vi medvetet INTE kräver
 
@@ -24,6 +25,8 @@ En story är klar när:
 - Vi kräver inte att två personer granskar koden. En granskare räcker och gör att vi inte blir stående och väntar.
 ## Ändringslogg
 
-| Datum | Vad vi ändrade | Varför |
-|---|---|---|
-|  2026-09-23 | Första versionen | Sprint 0 |
+| Datum      | Vad vi ändrade                                                                                                                                        | Varför                                                                                                                                  |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+|            |                                                                                                                                                       |                                                                                                                                         |
+| 2026-09-28 | `main` → `dev` via pull request                                                                                                                       | Vi arbetar `feature → dev → main` (se `BRANCHING.md`), DoD beskrev inte det                                                             |
+| 2026-09-28 | "Dokumentation uppdaterad (README)" ersatt av två rader: PR-beskrivning enligt mallen + README om ändringen påverkar hur man kör eller använder appen | README i varje PR gav merge-konflikter och tomma uppdateringar. Det vi ville dokumentera – vad man gjort – hör hemma i PR-beskrivningen |
