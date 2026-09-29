@@ -81,5 +81,18 @@ namespace IU2.Core.services
                 _reports.Remove(report);
             }
         }
+
+        // Hämtar rapporter för månaden, används av update service
+        public IEnumerable<TimeReport> GetReportsForMonth(DateTime month) =>
+            _reports.Where(r => r.Date.Year == month.Year && r.Date.Month == month.Month);
+
+        // Uppdaterar timmar på en befintlig rapport, används av update service
+        public bool UpdateHours(int id, decimal newHours)
+        {
+            var report = _reports.FirstOrDefault(r => r.Id == id);
+            if (report is null) return false;
+            report.Hours = newHours;
+            return true;
+        }
     }
 }

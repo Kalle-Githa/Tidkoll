@@ -1,4 +1,4 @@
-using IU2.Core.models;
+using IU2.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,7 +7,7 @@ namespace IU2.Core.services.interfaces
 {
     public interface IUpdateReportService
     {
-        List<TimeReports> GetReportsForCurrentMonth();
+        List<TimeReport> GetReportsForCurrentMonth();
         bool UpdateHours(int id, decimal newHours);
     }
 }
