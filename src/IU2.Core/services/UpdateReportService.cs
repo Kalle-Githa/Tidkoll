@@ -1,5 +1,5 @@
 using IU2.Core.helpers;
-using IU2.Core.models;
+using IU2.Core.Models;
 using IU2.Core.services.interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ namespace IU2.Core.services
 {
     public class UpdateReportService : IUpdateReportService
     {
-        private readonly TimeReportService timeReportService;
+        private readonly TimeReportService _timeReportService;
 
         public UpdateReportService(TimeReportService timeReportService)
         {
