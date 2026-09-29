@@ -23,21 +23,17 @@ namespace IU2.Core.services
         //    new TimeReports { Id = 3, Kund = "Initech", Datum = new DateOnly(2026, 9, 8), Timmar = 1.0m, Beskrivning = "Möte med kund" }
         //};
 
-        public List<TimeReports> GetReportsForCurrentMonth()
+        public List<TimeReport> GetReportsForCurrentMonth()
         {
-            var today = DateOnly.FromDateTime(DateTime.Now);
-            return _reports.Where(r => r.Datum.Year == today.Year && r.Datum.Month == today.Month).ToList();
+            var today = DateTime.Now;
+            return _timeReportService.GetReportsForMonth(today).ToList();
         }
 
-        public bool UpdateHours(int id, decimal newHours) // Kommer behövas till "Skapa TimeReport", kanske räcker det med en metod. (DRY)
+        public bool UpdateHours(int id, decimal newHours)
         {
-            var report = _reports.FirstOrDefault(r => r.Id == id);
-            if (report is null) return false;
-
             if (!TimeReportValidator.IsValidHours(newHours)) return false;
 
-            report.Timmar = newHours;
-            return true;
+            return _timeReportService.UpdateHours(id, newHours);
         }
     }
 }
