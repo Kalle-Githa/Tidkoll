@@ -1,0 +1,50 @@
+@page "/customers"
+@using IU2.Core.services
+@inject TimeReportService TimeReportService
+
+<div class="topbar">
+    <div class="topbar-left">
+        <div class="avatar">👤</div>
+        <h1>Kunder</h1>
+    </div>
+    <div class="topbar-right">
+        <span>Ekonomichef</span>
+        <span class="chevron">▾</span>
+    </div>
+</div>
+
+<div class="content">
+    <div class="card">
+        <h2>Alla kunder</h2>
+        <p class="subtitle">Överblick över samtliga kunder och om de är debiterbara.</p>
+
+        <table class="report-table">
+            <thead>
+                <tr>
+                    <th>KUNDNUMMER</th>
+                    <th>NAMN</th>
+                    <th>DEBITERBAR</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var c in TimeReportService.Customers)
+                {
+                    <tr>
+                        <td>@c.CustomerNumber</td>
+                        <td>@c.Name</td>
+                        <td>
+                            @if (c.IsBillable)
+                            {
+                                <span class="badge badge-billable">Debiterbar</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-not-billable">Ej debiterbar</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

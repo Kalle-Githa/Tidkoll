@@ -1,0 +1,62 @@
+@page "/billable-hours"
+@using IU2.Core.services
+@inject TimeReportService TimeReportService
+@inject IClock Clock
+
+<div class="topbar">
+    <div class="topbar-left">
+        <div class="avatar">👤</div>
+        <h1>Debiterbara timmar</h1>
+    </div>
+    <div class="topbar-right">
+        <span>Ekonomichef</span>
+        <span class="chevron">▾</span>
+    </div>
+</div>
+
+<div class="content">
+    <div class="card">
+        <h2>Debiterbara timmar per kund</h2>
+        <p class="subtitle">Välj kund och månad för att se totalt antal rapporterade timmar.</p>
+
+        <div class="form-row">
+            <div class="field">
+                <label>Kund</label>
+                <select class="input" @bind="selectedCustomerId">
+                    <option value="0">Välj kund</option>
+                    @foreach (var c in TimeReportService.Customers)
+                    {
+                        <option value="@c.Id">@c.Name (@c.CustomerNumber)</option>
+                    }
+                </select>
+            </div>
+            <div class="field">
+                <label>Månad</label>
+                <input type="month" class="input" @bind="selectedMonth" @bind:format="yyyy-MM" />
+            </div>
+        </div>
+
+        @if (selectedCustomerId > 0)
+        {
+            var customer = TimeReportService.Customers.First(c => c.Id == selectedCustomerId);
+            var totalHours = TimeReportService.GetHoursForCustomer(selectedCustomerId, selectedMonth.Year, selectedMonth.Month);
+
+            <div class="result-box">
+                <div class="result-label">
+                    Totalt för @customer.Name, @selectedMonth.ToString("yyyy-MM")
+                    @if (!customer.IsBillable)
+                    {
+                        <span class="badge badge-not-billable">Ej debiterbar kund</span>
+                    }
+                </div>
+                <div class="result-value">@totalHours.ToString("0.0") h</div>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    private int selectedCustomerId = 0;
+    private DateTime selectedMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+
+}

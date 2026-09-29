@@ -1,6 +1,9 @@
 @page "/update-report"
-@using IU2.Core.models
+@using IU2.Core.Models
+@using IU2.Core.services
 @using IU2.Core.services.interfaces
+@using ReportModel = IU2.Core.Models.TimeReport
+@inject TimeReportService TimeReportService
 @inject IUpdateReportService ReportService
 
 <div class="page">
@@ -9,7 +12,7 @@
             <span class="avatar-icon">👤</span>
             <h1>Tidsrapport</h1>
         </div>
-        <div class="topbar-right">Anna Andersson ▾</div>
+        <div class="topbar-right">Konsult ▾</div>
     </header>
 
     <main class="card">
@@ -23,8 +26,7 @@
                     <option value="">Välj rapport</option>
                     @foreach (var r in reports)
                     {
-                        <option value="@r.Id">@r.Kund – @r.Datum.ToString("yyyy-MM-dd") (@r.Timmar h)</option>
-                    }
+                        <option value="@r.Id">@GetCustomerName(r.CustomerId) – @r.Date.ToString("yyyy-MM-dd") (@r.Hours h)</option>}
                 </select>
             </div>
         </div>
@@ -37,18 +39,17 @@
                         <th>DATUM</th>
                         <th>NUVARANDE TIMMAR</th>
                         <th>BESKRIVNING</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>@selectedReport.Kund</td>
-                        <td>@selectedReport.Datum.ToString("yyyy-MM-dd")</td>
-                        <td>@selectedReport.Timmar</td>
-                        <td>@selectedReport.Beskrivning</td>
-                    </tr>
-                </tbody>
-            </table>
-
+                   </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>@GetCustomerName(selectedReport.CustomerId)</td>
+                      <td>@selectedReport.Date.ToString("yyyy-MM-dd")</td>
+                      <td>@selectedReport.Hours</td>
+                      <td>@selectedReport.Description</td>
+                 </tr>
+             </tbody>
+           </table>
             <div class="field-row">
                 <div class="field">
                     <label>Nya timmar</label>
@@ -66,8 +67,8 @@
 </div>
 
 @code {
-    private List<TimeReports> reports = new();
-    private TimeReports? selectedReport;
+    private List<ReportModel> reports = new();
+    private ReportModel? selectedReport;
     private string newHoursInput = string.Empty;
     private bool showConfirmation = false;
 
@@ -82,7 +83,7 @@
         if (int.TryParse(e.Value?.ToString(), out var id))
         {
             selectedReport = reports.FirstOrDefault(r => r.Id == id);
-            newHoursInput = selectedReport?.Timmar.ToString() ?? string.Empty;
+            newHoursInput = selectedReport?.Hours.ToString() ?? string.Empty;
         }
         else
         {
@@ -104,4 +105,11 @@
             }
         }
     }
+
+    private string GetCustomerName(int customerId)
+    {
+        return TimeReportService.Customers
+            .FirstOrDefault(c => c.Id == customerId)?.Name ?? "Okänd kund";
+    }
+}
 }
