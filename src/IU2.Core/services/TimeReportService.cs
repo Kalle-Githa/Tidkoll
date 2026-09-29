@@ -10,16 +10,16 @@ namespace IU2.Core.services
         //Static list of customers
         public List<Customer> Customers { get; } = new()
         {
-            new Customer { Id = 1, Name = "Acme AB" },
-            new Customer { Id = 2, Name = "Globex Solutions" },
-            new Customer { Id = 3, Name = "Initech" },
-            new Customer { Id = 4, Name = "Umbrella Corp" },
+            new Customer { Id = 1, Name = "Acme AB", CustomerNumber = "K-1001", IsBillable = false },
+            new Customer { Id = 2, Name = "Globex Solutions", CustomerNumber = "K-1002", IsBillable = false },
+            new Customer { Id = 3, Name = "Initech", CustomerNumber = "K-1003", IsBillable = false },
+            new Customer { Id = 4, Name = "Umbrella Corp", CustomerNumber = "K-1004", IsBillable = false },
         };
 
         private readonly List<TimeReport> _reports = new();
         private int _nextId = 1;
 
-        private IReadOnlyList<TimeReport> GetAllReports() => _reports;
+        public IReadOnlyList<TimeReport> GetAllReports() => _reports;
 
         public IEnumerable<TimeReport> GetReportsForDate(DateTime date) =>
             _reports.Where(r => r.Date.Date == date.Date).OrderBy(r => r.Id);
@@ -54,7 +54,23 @@ namespace IU2.Core.services
                 Description = description
             });
 
+            // A customer is considered billable if they have at least one time report.
+            var customer = Customers.FirstOrDefault(c => c.Id == customerId);
+            if (customer is not null)
+            {
+                customer.IsBillable = true;
+            }
+
             return (true, null);
+        }
+
+        public decimal GetHoursForCustomer(int customerId, int year, int month)
+        {
+            return _reports
+                .Where(r => r.CustomerId == customerId
+                    && r.Date.Year == year
+                    && r.Date.Month == month)
+                .Sum(r => r.Hours);
         }
 
         public void DeleteReport(int id)
