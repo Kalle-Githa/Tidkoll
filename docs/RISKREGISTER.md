@@ -22,3 +22,6 @@
 | 3 | Problemet har ännu inte inträffat. | Fortfarande en risk – vi behåller åtgärden. | Demo 30/9 |
 | 4 | Vi ändrade planeringen och tog igen tiden när det inträffade. | Fortfarande en risk – vi behåller åtgärden och estimerar med mer marginal i sprint 2. | Demo 30/9 |
 | 5 | Följs upp vid demon. | – | Demo 30/9 |
+
+
+> *Uppföljning 30/9: gjordes i statusrapporten, med tre risker, ägare och åtgärder.*
