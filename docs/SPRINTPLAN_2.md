@@ -40,6 +40,7 @@
 - Beställaren svarar inom **24 timmar** på vardagar utanför PO-tiderna.
 - Alla tre i teamet kan jobba en hel dag per sprint.
 - Svaret på kravförändringen lämnas inom 24 timmar (senast 30 september).
+- Uppmätt väntetid på beställaren: 0 h. Vi ställde inga skriftliga frågor utanför PO-tiderna, alla frågor togs på PO-mötena.
 
 ---
 
