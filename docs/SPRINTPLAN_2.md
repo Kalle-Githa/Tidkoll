@@ -20,12 +20,12 @@
 
 **Retroåtgärder vi genomför i sprinten** (från retron 28/9)
 
-| # | Åtgärd | Så syns den i sprint 2 |
-|---|---|---|
-| 1 | Bygga grunden först (modeller) | Kundmodellen får sina nya fält innan sidorna byggs |
-| 2 | Lösa merge-konflikter i GitHub | Alla PR:er mergas i GitHub, inte i Visual Studio |
-| 3 | Planera med mer marginal | 4 SP i stället för 8 SP |
-| 4 | Den som skrivit koden är med när vi löser problem | Gäller hela sprinten |
+| # | Åtgärd | Så syns den i sprint 2 | Effekt |
+|---|---|---|---|
+| 1 | Bygga grunden först (modeller) | Kundmodellen får sina nya fält innan sidorna byggs | 6 fix-commits i sprint 1 → 0 i sprint 2 |
+| 2 | Lösa merge-konflikter i GitHub | Alla PR:er mergas i GitHub, inte i Visual Studio | PR #11–#13 mergade inom 8 min, jämfört med 2 dagar i sprint 1 |
+| 3 | Planera med mer marginal | 4 SP i stället för 8 SP | Klart samma dag, plus 3 SP extra |
+| 4 | Den som skrivit koden är med när vi löser problem | Gäller hela sprinten | Inga kodproblem som krävde gemensam felsökning uppstod. Tillägget på #4 gjordes av Emelie, som skrev den ursprungliga koden. |
 
 **Dagens upplägg**
 | Tid | Vad |
