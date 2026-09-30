@@ -43,7 +43,7 @@ För konsulter som vill lägga minimal tid på tidrapportering är **Tidkoll** e
 
 > **Om #4:** Kriteriet Välj en rapport i aktuell månad och ändra timmarna (samma regler som #2). Vi lade till "existerande" så att samma data används för alla funktioner.
 
-> **Om #4:** Storyn #11 (Must) är en ny story som inte fanns i sprintplanen. Den är ett krav från beställaren som kom efter sprintplanen.
+> **Om #11:** Storyn #11 (Must) är en ny story som inte fanns i sprintplanen. Den är ett krav från beställaren som kom efter sprintplanen.
 
 ## Sammanfattning
 
